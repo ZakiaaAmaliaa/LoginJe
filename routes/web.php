@@ -3,8 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controller;
 use App\Http\Middleware;
-use App\Http\Controller\usercontroller;
-use App\Http\Controller\admincontroller;
+use App\Http\Controllers\admincontroller;
+use App\Http\Controllers\usercontroller;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +19,8 @@ use App\Http\Controller\admincontroller;
 
 //Admin
 Auth::routes();
-Route::get('/user', 'admincontroller@index')->middleware('isUser')->name('user');
-Route::get('/admin', 'usercontroller@index')->middleware('isAdmin')->name('admin');
+Route::get('/user', [usercontroller::class, 'index'])->middleware(['auth','isUser'])->name('user');
+Route::get('/admin', [admincontroller::class, 'index'])->middleware(['auth', 'isAdmin'])->name('admin');
 
 // Route::group(['Middleware' => ['isAdmin']], function () {
 //     Route::get('/admin', [admincontroller::class, 'index'])->name('admin');
@@ -32,7 +32,7 @@ Route::get('/admin', 'usercontroller@index')->middleware('isAdmin')->name('admin
 
 // Route::middleware(['auth', 'isUser'])->group(function(){
 //     Route::get('/user', [App\Http\Controllers\usercontroller::class, 'index'])->name('user');
-// }); 
+// });
 
 // Route::middleware(['auth', 'isUser'])->group(function(){
 //     Route::get('/user', [App\Http\Controllers\admincontroller::class, 'index'])->name('admin');

@@ -18,8 +18,12 @@
                 </div>
                 <div class="card-body">
                     <div class="panel-body">
-                      Check admin view:
-                      <a href="{{route('admin')}}">Admin View</a>
+                        @if(auth()->user()->role == 1)
+                        Check admin view: <a href="{{route('admin')}}">Admin View</a>
+                        @else
+                        Check user view:
+                        <a href="{{route('user')}}">User View</a>
+                        @endif
                     </div>
                 </div>
 

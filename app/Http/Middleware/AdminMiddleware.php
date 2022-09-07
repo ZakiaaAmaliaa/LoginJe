@@ -15,22 +15,12 @@ class AdminMiddleware
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
-    // admin role is 1 
+    // admin role is 1
     //user role is 0
     {
-        if(Auth::check()){
-            if(Auth::users()->role === 1)
-            {
-                return redirect('admin');
-            }
-
-            else{
-                redirect ('/login')->with('message', 'Anda Tidak Mempunyai Hak Akses! ');
-            }
-            
-        }
-        else{
-            redirect ('/register')->with('message', 'Daftar Untuk Mendapat Hak Akses Informasi! ');
+        if(auth()->user()->role == 0)
+        {
+            return redirect('/home')->with('message', 'Anda Tidak Mempunyai Hak Akses! ');
         }
         return $next($request);
     }
