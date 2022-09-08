@@ -41,5 +41,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/validate', function () {
+    if(auth()->user()->role == 1) {
+        return redirect()->route('admin');
+    }
+
+    return redirect()->route('user');
+})->middleware('auth');
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
