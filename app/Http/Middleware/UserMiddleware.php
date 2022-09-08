@@ -16,19 +16,8 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::check()){
-            if(Auth::users()->role === 0)
-            {
-                return redirect('user');
-            }
-
-            else{
-                redirect ('/login')->with('message', 'Anda Tidak Mempunyai Hak Akses! ');
-            }
-            
-        }
-        else{
-            redirect ('/register')->with('message', 'Daftar Untuk Mendapat Hak Akses Informasi! ');
+        if(auth()->user()->role == 1) {
+            return redirect('admin')->with('message', 'Anda tidak punya hak akses!.');
         }
         return $next($request);
     }
